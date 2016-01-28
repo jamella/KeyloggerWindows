@@ -1,3 +1,6 @@
+FILE *file;
+file=fopen("C:\\catatan.txt","a+");
+
 switch (wParam)
     {
            
