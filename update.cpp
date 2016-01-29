@@ -127,7 +127,7 @@ void mulaiRekam(char *namaBerkas){
 		// Perulangan kemungkinan semua keycode Windows API sebanyak 2 byte = 256 keycode
 		for(int keyCode = 1; keyCode < 0xFF; keyCode++){
 		
-			// Pengguna menekan keyboard
+			// Pengguna menekan keyboard dengan mengabaikan tombol Shift, Ctrl, dan Alt
 			if((GetKeyState(keyCode) & 0x8000) && !kunciKhusus(keyCode)){
 				
 				// tombol dilepas (keyup)		
