@@ -19,15 +19,12 @@
 		pemanggilan fungsi ini mirip tombol toggle (on/off). Ditekan sekali true ditekan lagi menjadi false, ditekan lagi
 		menjadi true dan seterusnya.
 		Sumber: https://msdn.microsoft.com/en-us/library/windows/desktop/ms646301%28v=vs.85%29.aspx
-		
 */
 
 /*
-
 	Issue sementara
 		29 Januari 2016 22:05, "Penulisan ke file menggunakan string dataRekam masih bermasalah."
 		29 Januari 2016 22:05, "fungsi olahKarakter belum mengembalikan karakter yang diinginkan --> belum diperbaiki, butuh perbaikan"
-
 */
 
 
