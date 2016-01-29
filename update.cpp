@@ -87,7 +87,7 @@ void olahMasukan(int in, bool tCtrl, bool tAlt, bool tShift, bool tCapslock){
 		masukan += olahKarakter(in + 32);
 	}else{
 		
-		// Mode Shift dan Capslock aktif (huruf kapital)
+		// Mode Shift atau Capslock aktif (huruf kapital)
 		masukan += olahKarakter(in);
 	}
 	masukan += (tCtrl || tAlt ? ")" : "");
