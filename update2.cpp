@@ -47,11 +47,14 @@
 using namespace std;
 
 /* ----------------------------------------
-* 				VARIABEL GLOBAL
+* 	 VARIABEL GLOBAL
 * ----------------------------------------*/
 
 // tempat menyimpan semua data rekaman keyboard
 string dataRekam = "";
+string tanggalWaktu;
+string filename;
+ofstream outfile;
 
 //Membuat Dynamic String
 //tidak jadi
@@ -60,6 +63,19 @@ string dataRekam = "";
 * int i =0, j =1;
 * str
 ********* */
+//menuliskan data dari perekam ke file
+void TulisKeFile() {
+	outfile.open(filename.c_str(), ios::out | ios::trunc);
+	if (!outfile) {
+		cerr << "Tidak bisa membuka file!" <<endl;
+		abort();
+	}
+	//menulis string yang ada di dataRekam ke outfile.
+	outfile << dataRekam.c_str();
+
+	// menutup berkas
+	outfile.close();
+}
 
 // mengembalikan bentuk karakter dari keyCode Keyboard
 char olahKarakter(int kode){
@@ -140,11 +156,10 @@ void mulaiRekam(){
         * exit(1);
 	* }
 	* -------------------------------- */
-    time_t now = time(0);
+        time_t now = time(0);
 	tm *ltm = localtime(&now);
 
-	string tanggalWaktu;
-	string filename;
+	
 
 	//konversi dari integer ke string
 	stringstream syear, smon,sday,shour, smin,ssec;
@@ -162,17 +177,6 @@ void mulaiRekam(){
 	ssec << sec; string strsec=ssec.str();
 	tanggalWaktu = stryear+strday+strhour+'-'+strhour+strmin+strsec;
 	filename = tanggalWaktu + ".txt";
-
-
-	// Standard C++
-	ofstream outfile;
-	outfile.open(filename.c_str(), ios::out | ios::trunc);
-	// Membuka file dengan append mode.
-	if (!outfile) {
-		cerr << "Tidak bisa membuka file!" <<endl;
-		abort();
-	}
-	
 
 	// vkCode adalah variabel yang menyimpan keyCode yang diinput pengguna
 	int vkCode = -1;
@@ -225,12 +229,7 @@ void mulaiRekam(){
 	* bukan standard cpp 
 	* fputs(dataRekam.c_str(), file); 
 	*--------------------------- */
-	
-	//menulis string yang ada di dataRekam ke outfile.
-	outfile << dataRekam.c_str();
 
-	// menutup berkas
-	outfile.close();
 }
 
 int main(){
