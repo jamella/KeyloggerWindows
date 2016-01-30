@@ -31,14 +31,15 @@
 using namespace std;
 
 // tempat menyimpan semua data rekaman keyboard
-// emang ada string di cpp?
-//string dataRekam = "";
+string dataRekam = "";
 
 //Membuat Dynamic String
-
-char *str, charac;
-int i =0, j =1;
-str
+//tidak jadi
+/* *******
+* char *str, charac;
+* int i =0, j =1;
+* str
+********* */
 
 // mengembalikan bentuk karakter dari keyCode Keyboard
 char olahKarakter(int kode){
@@ -68,44 +69,43 @@ bool kunciKhusus(int i){
 }
 
 // mengolah masukan dengan keyCode in dan keadaan Shift, Ctrl, Alt, dan Capslock diberikan
-/* **********************************************************************************
-*	void olahMasukan(int in, bool tCtrl, bool tAlt, bool tShift, bool tCapslock){
-*		
-*		string masukan = "";
-*	
-*		// Ctrl dan Alt ditekan
-*		if(tCtrl && tAlt){
-*			masukan += "(CTRL+ALT+";
-*		}else{
-*			
-*			// Hanya Ctrl yang ditekan
-*			if(tCtrl){
-*				masukan += "(CTRL+";
-*			}else{
-*				
-*				// Hanya Alt yang ditekan
-*				if(tAlt){
-*					masukan += "(ALT+";
-*				}
-*			}
-*		}
-*	
-*		// Mode Shift dan Capslock tidak aktif (huruf kecil)
-*		if(!(tCapslock ^ tShift) && in > 64 && in < 91){
-*			masukan += olahKarakter(in + 32);
-*		}else{
-*			
-*			// Mode Shift atau Capslock aktif (huruf kapital)
-*			masukan += olahKarakter(in);
-*		}
-*		masukan += (tCtrl || tAlt ? ")" : "");
-*	
-*		cout << masukan;
-*	
-*		// menyimpan keluaran ke dalam string dataRekam;
-*		dataRekam += masukan;
-*	}
-***************************************************************************************** */
+void olahMasukan(int in, bool tCtrl, bool tAlt, bool tShift, bool tCapslock){
+	
+	string masukan = "";
+
+	// Ctrl dan Alt ditekan
+		if(tCtrl && tAlt){
+			masukan += "(CTRL+ALT+";
+		}else{
+			
+			// Hanya Ctrl yang ditekan
+			if(tCtrl){
+				masukan += "(CTRL+";
+			}else{
+				
+				// Hanya Alt yang ditekan
+				if(tAlt){
+					masukan += "(ALT+";
+				}
+			}
+		}
+	
+		// Mode Shift dan Capslock tidak aktif (huruf kecil)
+		if(!(tCapslock ^ tShift) && in > 64 && in < 91){
+			masukan += olahKarakter(in + 32);
+		}else{
+			
+			// Mode Shift atau Capslock aktif (huruf kapital)
+			masukan += olahKarakter(in);
+		}
+		masukan += (tCtrl || tAlt ? ")" : "");
+	
+		cout << masukan;
+	
+		// menyimpan keluaran ke dalam string dataRekam;
+		dataRekam += masukan;
+	}
+
 
 // mulai merekam masukan keyboard
 void mulaiRekam(char *namaBerkas){
