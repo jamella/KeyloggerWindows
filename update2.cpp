@@ -164,7 +164,7 @@ void mulaiRekam(char *namaBerkas){
 	}
 	
 	// menulis rekaman/log
-	fputs(dataRekam, file); 
+	fputs(dataRekam.c_str(), file); 
 	
 	// menutup berkas
 	fclose(file);
