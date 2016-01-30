@@ -1,6 +1,6 @@
 /*----------------------------------------------------------------
  *  Author:     1.  Febi Agil Ifdillah - 13514010
- 		2.  Rio Chandra - 13514082
+ 		2.  Rio Chandra Rajagukguk - 13514082
  *  Written:       28/1/2016
  *  Last updated:  30/1/2016
  *
