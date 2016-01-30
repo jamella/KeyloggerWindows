@@ -1,3 +1,15 @@
+/*----------------------------------------------------------------
+ *  Author:     1.  Febi Agil Ifdillah - 13514010
+ 		2.  Rio Chandra - 13514082
+ *  Written:       28/1/2016
+ *  Last updated:  30/1/2016
+ *
+ *  Compilation:   g++ -o Keylogger Keylogger.cpp
+ *  Execution:     ./Keylogger
+ *
+ *----------------------------------------------------------------*/
+
+
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
